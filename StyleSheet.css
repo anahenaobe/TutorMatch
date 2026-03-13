@@ -556,7 +556,7 @@ select {
 
 /* Secciones */
 .seccion       { padding: 4rem 0; }
-.seccion-chica { padding: 2rem 0; }
+.seccion-pequena { padding: 2rem 0; }
  
 .cuadricula-2 {
   display: grid;
@@ -660,4 +660,206 @@ select {
   color: var(--color-texto-gris);       
   line-height: 1.7;
   font-weight: 500;
+}
+
+/* Caja de registro */
+.caja-registrate {
+  background-color: var(--color-blanco);
+  border: 1.5px solid var(--color-borde);
+  border-radius: 28px;
+  padding: 4rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/*Circulos de decoración*/
+.caja-registrate::before {
+  content: '';           
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background-color: var(--color-morado-claro);
+  border-radius: 50%; 
+  top: -100px;
+  right: -80px;
+  pointer-events: none;   
+}
+
+.caja-registrate::after {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-color: var(--color-rosado-claro);
+  border-radius: 50%;
+  bottom: -60px;
+  left: -40px;
+  pointer-events: none;
+}
+
+.caja-registrate > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* pie de pagina */
+#pie-pagina {
+  padding: 2rem;
+  text-align: center;
+  border-top: 1.5px solid var(--color-borde);
+  margin-top: 4rem;
+  color: var(--color-texto-gris);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+
+/* Animaciones */
+.aparecer {
+  animation: subir 0.5s ease both;
+}
+
+@keyframes subir {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.retraso-2 { animation-delay: 0.16s; }
+
+
+/* Responsive*/
+
+@media (max-width: 768px) {
+
+  /*pasamos dos columnas a una */
+  .cuadricula-hero,
+  .cuadricula-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .columna-tarjeta {
+    display: none;
+  }
+
+  .titulo-hero {
+    font-size: clamp(1.9rem, 8vw, 2.4rem);
+  }
+
+  .ocultar-movil {
+    display: none;
+  }
+
+}
+
+/* formularios de login y request */
+
+.campo-formulario {
+  display: flex;
+  flex-direction: column; 
+  gap: 0.4rem;           
+  margin-bottom: 1.25rem;
+}
+
+.campo-formulario label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-texto);
+}
+
+.campo-formulario input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid var(--color-borde);
+  border-radius: 10px;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Cuando el usuario hace click en el input */
+.campo-formulario input:focus {
+  outline: none;                            
+  border-color: var(--color-morado);
+  box-shadow: 0 0 0 3px var(--color-morado-claro);
+}
+
+/* Texto de error debajo del input*/
+.error-text {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-rosado);
+  min-height: 1rem; 
+}
+
+.success-text {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-verde);
+  margin-bottom: 0.75rem;
+  min-height: 1rem;
+}
+
+.campo-formulario + .boton,
+form > .boton {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+/* Tarjeta de reserva */
+
+.tarjeta-reserva {
+  margin-bottom: 1rem;
+}
+
+.tarjeta-reserva h3 {
+  font-family: 'Noto Serif Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-texto);
+  margin-bottom: 0.75rem;
+}
+
+.tarjeta-reserva p {
+  font-size: 0.9rem;
+  color: var(--color-texto-gris);
+  margin-bottom: 0.4rem;
+}
+
+.tarjeta-reserva p strong {
+  color: var(--color-texto);
+  font-weight: 700;
+}
+
+.estado-reserva {
+  display: inline-block;
+  padding: 0.2rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.estado-pending {
+  background-color: var(--color-amarillo-claro);
+  color: #a07800;
+  border: 1.5px solid rgba(255, 227, 71, 0.5);
+}
+
+.estado-cancelled {
+  background-color: var(--color-rosado-claro);
+  color: var(--color-rosado);
+  border: 1.5px solid rgba(255, 92, 135, 0.3);
+}
+
+.boton-cancelar {
+  margin-top: 1rem;
+  color: var(--color-rosado);
+  border-color: var(--color-rosado);
+}
+
+.boton-cancelar:hover {
+  background-color: var(--color-rosado-claro);
+  border-color: var(--color-rosado);
 }
