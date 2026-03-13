@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reservar tutoría - TutorMatch</title>
+  <link rel="stylesheet" href="../StyleSheet.css" />
+</head>
+<body>
+  <main class="contenedor" style="padding: 3rem 0;">
+    <div class="tarjeta" style="max-width: 600px; margin: 0 auto;">
+      <h1>Reservar tutoría</h1>
+
+      <form id="bookingForm" novalidate>
+        <div class="campo-formulario">
+          <label for="date">Fecha</label>
+          <input id="date" name="date" type="date" />
+          <small id="date-error" class="error-text"></small>
+        </div>
+
+        <div class="campo-formulario">
+          <label for="time">Hora</label>
+          <input id="time" name="time" type="time" />
+          <small id="time-error" class="error-text"></small>
+        </div>
+
+        <p id="booking-general-error" class="error-text"></p>
+        <p id="booking-success" class="success-text"></p>
+
+        <button type="submit" class="boton boton-morado boton-grande">
+          Confirmar reserva
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <script type="module">
+    import { getSession } from "../js/auth.js";
+    import { createBooking } from "../js/bookings.js";
+    import { validateBooking } from "../js/validators.js";
+    import { showFieldError, clearErrors } from "../js/ui.js";
+
+    const form = document.getElementById("bookingForm");
+    const generalError = document.getElementById("booking-general-error");
+    const successMessage = document.getElementById("booking-success");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      clearErrors(["date", "time"]);
+      generalError.textContent = "";
+      successMessage.textContent = "";
+
+      const session = getSession();
+
+      if (!session) {
+        generalError.textContent = "Debes iniciar sesión para reservar";
+        return;
+      }
+
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+
+      const errors = validateBooking({ date, time });
+
+      if (errors.date) showFieldError("date", errors.date);
+      if (errors.time) showFieldError("time", errors.time);
+
+      if (Object.keys(errors).length > 0) return;
+
+      const result = createBooking({
+        tutorId: "t1",
+        studentId: session.id,
+        date,
+        time
+      });
+
+      if (!result.success) {
+        generalError.textContent = result.message;
+        return;
+      }
+
+      successMessage.textContent = "Reserva creada correctamente";
+      form.reset();
+    });
+  </script>
+</body>
+</html>

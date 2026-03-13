@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mis reservas - TutorMatch</title>
+  <link rel="stylesheet" href="../StyleSheet.css" />
+</head>
+<body>
+  <main class="contenedor" style="padding: 3rem 0;">
+    <h1>Mis reservas</h1>
+    <div id="bookingsContainer" class="columna-tarjeta" style="margin-top: 2rem;"></div>
+  </main>
+
+  <script type="module">
+    import { getSession } from "../js/auth.js";
+    import { getBookings, cancelBooking } from "../js/bookings.js";
+    import { renderEmptyState } from "../js/ui.js";
+
+    const container = document.getElementById("bookingsContainer");
+    const session = getSession();
+
+    function renderBookings() {
+      const allBookings = getBookings();
+      const userBookings = allBookings.filter(
+        (booking) => booking.studentId === session?.id
+      );
+
+      if (!session) {
+        renderEmptyState(
+          container,
+          "No has iniciado sesión",
+          "Inicia sesión para ver tus reservas."
+        );
+        return;
+      }
+
+      if (userBookings.length === 0) {
+        renderEmptyState(
+          container,
+          "Aún no tienes reservas",
+          "Cuando reserves una tutoría, la verás aquí."
+        );
+        return;
+      }
+
+     container.innerHTML = userBookings
+  .map(
+    (booking) => `
+      <div class="tarjeta tarjeta-reserva">
+        <h3>Reserva ${booking.id}</h3>
+        <p><strong>Fecha:</strong> ${booking.date}</p>
+        <p><strong>Hora:</strong> ${booking.time}</p>
+        <p>
+          <strong>Estado:</strong>
+          <span class="estado-reserva ${
+            booking.status === "cancelled"
+              ? "estado-cancelled"
+              : "estado-pending"
+          }">
+            ${
+              booking.status === "cancelled"
+                ? "Cancelada"
+                : "Pendiente"
+            }
+          </span>
+        </p>
+
+        ${
+          booking.status !== "cancelled"
+            ? `<button class="boton boton-borde boton-cancelar" data-id="${booking.id}">
+                Cancelar reserva
+              </button>`
+            : ""
+        }
+      </div>
+    `
+  )
+  .join("");
+
+      document.querySelectorAll("[data-id]").forEach((button) => {
+        button.addEventListener("click", () => {
+          cancelBooking(button.dataset.id);
+          renderBookings();
+        });
+      });
+    }
+
+    renderBookings();
+  </script>
+</body>
+</html>
