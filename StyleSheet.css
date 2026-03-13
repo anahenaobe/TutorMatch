@@ -514,3 +514,128 @@ select {
   margin: 3rem 0;
   opacity: 0.6;
 }
+.campo-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.campo-formulario label {
+  font-weight: 700;
+  color: #1a1825;
+}
+
+.campo-formulario input,
+.campo-formulario textarea,
+.campo-formulario select {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1.5px solid #e2ded6;
+  border-radius: 12px;
+  background: white;
+  font-family: 'Nunito', sans-serif;
+}
+
+.campo-formulario input:focus,
+.campo-formulario textarea:focus,
+.campo-formulario select:focus {
+  outline: none;
+  border-color: #5c3bff;
+  box-shadow: 0 0 0 3px rgba(92, 59, 255, 0.12);
+}
+
+.input-error {
+  border-color: #ff5c87 !important;
+  background-color: #fff0f4;
+}
+
+.error-text {
+  min-height: 18px;
+  font-size: 0.82rem;
+  color: #d63c67;
+  font-weight: 700;
+}
+
+.success-text {
+  min-height: 18px;
+  font-size: 0.82rem;
+  color: #0e9e5e;
+  font-weight: 700;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+}
+
+.empty-state h3 {
+  margin-bottom: 0.5rem;
+  color: #1a1825;
+}
+
+.empty-state p {
+  color: #7a7591;
+}
+
+@media (max-width: 768px) {
+  .botones-nav {
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .fila-acciones {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .fila-estadisticas {
+    grid-template-columns: 1fr;
+  }
+
+  .item-estadistica:not(:last-child) {
+    border-right: none;
+    border-bottom: 1.5px solid #e2ded6;
+    padding-bottom: 1rem;
+  }
+
+  .contenedor {
+    padding: 0 1rem;
+  }
+
+  .tarjeta {
+    padding: 1rem;
+  }
+}
+.tarjeta-reserva {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.estado-reserva {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.7rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.estado-pending {
+  background-color: #fffbe6;
+  color: #9a7b00;
+  border: 1.5px solid rgba(255, 227, 71, 0.5);
+}
+
+.estado-cancelled {
+  background-color: #fff0f4;
+  color: #d63c67;
+  border: 1.5px solid rgba(255, 92, 135, 0.35);
+}
+
+.boton-cancelar {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+}
