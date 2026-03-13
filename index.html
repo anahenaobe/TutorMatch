@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>TutorMatch — Encuentra tu tutor ideal</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="StyleSheet.css" />
+
+  <style>
+    .fila-precio-boton {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .encabezado-tarjeta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ---- Franja de Hero ---- */
+    .seccion-hero {
+      background-color: var(--color-blanco);
+      border-bottom: 1.5px solid var(--color-borde);
+      padding: 4rem 0;
+      width: 100%;
+    }
+
+    .grilla-hero {
+      display: block;
+    }
+
+    .titulo-hero {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+    }
+
+    .bloque-tarjeta-hero {
+      margin-top: 2.5rem;
+    }
+
+    .bloque-tarjeta-hero .tarjeta {
+      width: 100%;
+    }
+
+    .interior-tarjeta-franja {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .interior-tarjeta-franja {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+  </style>
+
+
+</head>
+
+<body>
+
+
+  <!--Barra de navegacíon-->
+  <nav class="barra-nav">
+    <div class="contenedor">
+
+      <a href="index.html" class="logo-nav">
+        tutor<span class="punto-logo">.</span>match
+      </a>
+
+      <div class="botones-nav">
+        <a href="pages/login.html" class="boton boton-transparente solo-escritorio">
+          Iniciar sesión
+        </a>
+        <a href="pages/register.html" class="boton boton-borde boton-chico">
+          Registrarse
+        </a>
+        <a href="pages/search.html" class="boton boton-morado boton-chico">
+          Buscar tutor →
+        </a>
+      </div>
+
+    </div>
+  </nav>
+
+  <!--Sección de hero-->
+  <section class="seccion-hero">
+    <div class="contenedor">
+
+        <h1 class="titulo-hero">
+          Encuentra el tutor
+          <span class="texto-marcado"> perfecto </span>
+          <br>
+          <span class="texto-cursiva"> para cada materia.</span>
+        </h1>
+
+        <p class="subtitulo-hero">
+          Reserva con tutores de matemáticas, programación, física y más.
+          Chatea y aprende a tu propio ritmo.
+        </p>
+
+        <!--Botones-->
+        <div class="fila-acciones">
+          <a href="pages/search.html" class="boton boton-morado boton-grande">
+            Buscar tutores
+          </a>
+          <a href="pages/register.html" class="boton boton-amarillo boton-grande">
+            Quiero ser tutor
+          </a>
+        </div>
+
+        <!--Estadísticas  -->
+        <div class="fila-estadisticas">
+          <div class="item-estadistica">
+            <div class="numero-estadistica">300+</div>
+            <div class="etiqueta-estadistica">Tutores activos</div>
+          </div>
+          <div class="item-estadistica">
+            <div class="numero-estadistica">2k</div>
+            <div class="etiqueta-estadistica">Sesiones</div>
+          </div>
+          <div class="item-estadistica">
+            <div class="numero-estadistica">4.8★</div>
+            <div class="etiqueta-estadistica">Calificación</div>
+          </div>
+        </div>
+
+        <br>
+       
+        <div class="bloque-tarjeta-hero aparecer retraso-2">
+          <div class="tarjeta tarjeta-con-franja">
+            <div class="interior-tarjeta-franja">
+
+            <!-- Encabezado del tutor -->
+            <div class="encabezado-tarjeta" style="margin-bottom: 1rem;">
+            <div class="iniciales-tutor iniciales-grandes">AH</div>
+            <div>
+                <div class="nombre-tutor">Ana Henao</div>
+                <div class="materia-tutor">Tutora de Cálculo</div>
+            </div>
+            </div>
+
+            <!-- Estrellas y rating -->
+            <div class="fila-calificacion" style="margin-bottom: 1rem;">
+            <span class="estrellas">
+                <span class="estrella-llena">★</span>
+                <span class="estrella-llena">★</span>
+                <span class="estrella-llena">★</span>
+                <span class="estrella-llena">★</span>
+                <span class="estrella-llena">★</span>
+            </span>
+            <span class="numero-calificacion">4.9</span>
+            <span class="cantidad-resenas">(38 reseñas)</span>
+            </div>
+
+             <!-- Disponible -->
+            <div class="pastilla-disponible">
+            <div class="punto-verde"></div>
+            Disponible hoy
+            </div>
+
+
+            <!-- Precio y botón -->
+            <div class="fila-precio-boton">
+            <div class="precio-tarjeta">
+                $45.000 <span class="unidad-precio">/ hora </span>
+            </div>
+            
+            <a href="pages/booking-request.html" class="boton boton-morado boton-chico">
+                Reservar
+            </a>
+            </div>
+
+            <!-- Tags de materias -->
+            <div class="grupo-etiquetas" style="margin-bottom: 1rem;">
+            <span class="etiqueta etiqueta-morada">Cálculo </span>
+            <span class="etiqueta etiqueta-morada">Álgebra</span>
+            <span class="etiqueta etiqueta-verde">Online</span>
+            </div>
+        </div>
+        <!-- Final bloque tarjeta -->
+
+      </div>
+      <!-- Final hero -->
+
+    </div>
+
+  </section>
+
+   
+  <div class="contenedor">
+    <div class="linea-colores"></div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,516 @@
+:root {
+  --color-morado:         #5c3bff;
+  --color-morado-claro:   #ede9ff;
+  --color-rosado:         #ff5c87;
+  --color-rosado-claro:   #fff0f4;
+  --color-amarillo:       #ffe347;
+  --color-amarillo-claro: #fffbe6;
+  --color-verde:          #1ecb7b;
+  --color-verde-claro:    #e6faf2;
+
+  --color-fondo:          #f5f3ef;
+  --color-blanco:         #ffffff;
+  --color-borde:          #e2ded6;
+  --color-fondo-gris:     #f0eee9;
+
+  --color-texto:          #1a1825;
+  --color-texto-gris:     #7a7591;
+  --color-texto-muy-gris: #b8b4cc;
+
+  --fuente-display:   'Major Mono Display', monospace;
+  --fuente-elegante:  'Noto Serif Display', serif;
+  --fuente-normal:    'Nunito', sans-serif;
+
+  --radio-sm:   8px;
+  --radio-md:   12px;
+  --radio-lg:   18px;
+  --radio-xl:   28px;
+  --radio-full: 9999px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Nunito', sans-serif; 
+  background-color: #f5f3ef;
+  color: #1a1825;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+a {
+  text-decoration: none;
+  color: inherit; 
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input {
+  font-size: 1rem;
+}
+
+textarea {
+  font-size: 1rem;
+}
+
+select {
+  font-size: 1rem;
+}
+
+
+/* el contenedor que centra todo */
+.contenedor {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+
+/* --  Barra de navegación  -- */
+.barra-nav {
+  position: sticky; 
+  top: 0;
+  height: 66px;
+  background-color: #f5f3ef; 
+  border-bottom: 1.5px solid #e2ded6;
+  z-index: 100; 
+  display: flex;
+  align-items: center;
+}
+
+/* el contenedor adentro de la nav necesita flex tambien */
+.barra-nav .contenedor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* logo a la izquierda y botones a la derecha */
+  width: 100%;
+}
+
+.logo-nav {
+  font-family: 'Major Mono Display', monospace;
+  font-size: 1rem;
+  color: #5c3bff;
+}
+
+.logo-nav:hover {
+  opacity: 0.7;
+}
+
+.punto-logo {
+  color: #ff5c87;
+}
+
+.botones-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+
+/* ----- Botones ----- */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 9999px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.boton:active {
+  transform: scale(0.96);
+}
+
+.boton-morado {
+  background-color: #5c3bff;
+  color: white;
+  box-shadow: 0 4px 14px rgba(92, 59, 255, 0.3);
+}
+
+.boton-morado:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(92, 59, 255, 0.4);
+}
+
+.boton-amarillo {
+  background-color: #ffe347;
+  color: #1a1825; 
+  box-shadow: 0 6px 20px rgba(255, 227, 71, 0.35);
+}
+
+.boton-amarillo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(255, 227, 71, 0.5);
+}
+
+.boton-borde {
+  background-color: white;
+  color: #5c3bff;
+  border: 2px solid #5c3bff;
+}
+
+.boton-borde:hover {
+  background-color: #ede9ff;
+}
+
+.boton-transparente {
+  background-color: transparent;
+  color: #888598;
+}
+
+.boton-transparente:hover {
+  color: #1a1825;
+  background-color: #f0eee9;
+}
+
+/* versiones de tamaño */
+.boton-grande {
+  padding: 0.85rem 2rem;
+  font-size: 1rem;
+}
+
+.boton-chico {
+  padding: 0.6rem 1rem;
+  font-size: 0.82rem;
+}
+
+/* boton que no se puede clickear */
+.boton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+
+/* -- Parte del Hero-- */
+.seccion-hero {
+  padding: 4rem 0 3rem;
+}
+
+.grilla-hero { /* la grilla de 2 columnas del hero */
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 3rem;
+  align-items: center;
+}
+
+/* el texto pequeño de arriba del titulo */
+.etiqueta-hero {
+  display: inline-block;
+  background-color: #ede9ff;
+  color: #5c3bff;
+  border: 1.5px solid rgba(92, 59, 255, 0.2);
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  margin-bottom: 1.25rem;
+}
+
+
+.titulo-hero {
+  font-family: 'Noto Serif Display', serif;
+  font-size: 3.7rem; 
+  font-weight: 800;
+  line-height: 1.1;
+  color: #171620;
+  margin-bottom: 1.5rem;
+}
+
+
+.texto-marcado {
+  background: linear-gradient(transparent 50%, #fffd9e 52%);
+  padding: 0 4px;
+}
+
+.texto-cursiva {
+  font-style: italic;
+  font-weight: 300;
+  color: #623bff;
+}
+
+.subtitulo-hero {
+  font-size: 1.15rem;
+  color: #646079;
+  max-width: 500px;
+  margin-bottom: 2rem;
+  line-height: 1.75;
+  font-weight: 500;
+}
+
+/* los dos botones juntos */
+.fila-acciones {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+/* los 3 numeros de estadisticas */
+.fila-estadisticas {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; 
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+  padding-top: 2.5rem;
+  border-top: 1.5px solid #8a8783;
+}
+
+.item-estadistica {
+  text-align: center;
+}
+
+/* la linea vertical entre los numeritos */ 
+.item-estadistica:not(:last-child) {
+  border-right: 1.5px solid #e2ded6;
+}
+
+.numero-estadistica {
+  font-family: 'Noto Serif Display', serif;
+  font-size: 2.0rem;
+  font-weight: 700;
+  color: #1a1825;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.etiqueta-estadistica {
+  font-size: 0.75rem;
+  color: #7a7591;
+  font-weight: 700;
+}
+
+
+/* -- Tarjeta de tutor -- */
+.columna-tarjeta {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* la tarjeta blanca con borde */
+.tarjeta {
+  background-color: white;
+  border: 1.5px solid #e2ded6;
+  border-radius: 18px;
+  padding: 1.5rem;
+}
+
+/* cuando paso el mouse la tarjeta sube un poco */
+.tarjeta:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 24px rgba(92, 59, 255, 0.12);
+}
+
+/* la rayita morada de arriba de la tarjeta */
+.tarjeta-con-franja {
+  border-top: 4px solid #ab9cf7;
+}
+
+/* el cuadradito con las iniciales del tutor */
+.iniciales-tutor {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background-color: #ede9ff;
+  color: #5c3bff;
+  border: 2px solid rgba(92, 59, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Major Mono Display', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* version mas grande de las iniciales */
+.iniciales-grandes {
+  width: 56px;
+  height: 56px;
+  font-size: 1rem;
+}
+
+.nombre-tutor {
+  font-family: 'Noto Serif Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1825;
+}
+
+.materia-tutor {
+  font-size: 0.85rem;
+  color: #7a7591;
+  font-weight: 600;
+}
+
+/* el bloque de estrellas y precio */
+.bloque-calificacion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fila-inferior {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fila-precio-boton{
+  display:flex;
+  align-items:center;
+  gap:32px;
+}
+
+.precio-tarjeta{
+  display:flex;
+  align-items:center;
+  gap:6px; 
+}
+
+
+.estrellas {
+  display: inline-flex;
+  gap: 1px;
+  font-size: 0.95rem;
+}
+
+.estrella-llena {
+  color: #ffe347; 
+}
+
+.estrella-vacia {
+  color: #e2ded6; 
+}
+
+.numero-calificacion {
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.cantidad-resenas {
+  font-size: 0.72rem;
+  color: #7a7591;
+  font-weight: 600;
+}
+
+/* el grupo de tags (Calculo I, Algebra, etc) */
+.grupo-etiquetas {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap; 
+}
+
+/* una etiqueta individual */
+.etiqueta {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  border: 1.5px solid #e2ded6;
+  color: #7a7591;
+  background-color: #f0eee9;
+}
+
+/* cuando paso el mouse encima de una etiqueta */
+.etiqueta:hover {
+  background-color: #ede9ff;
+  border-color: #5c3bff;
+  color: #5c3bff;
+}
+
+.etiqueta-morada {
+  background-color: #ede9ff;
+  border-color: rgba(92, 59, 255, 0.3);
+  color: #5c3bff;
+}
+
+.etiqueta-verde {
+  background-color: #e6faf2;
+  border-color: rgba(30, 203, 123, 0.3);
+  color: #0e9e5e;
+}
+
+/* el precio grande */
+.precio-tarjeta {
+  font-family: 'Noto Serif Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #5c3bff;
+}
+
+/* el "/hora" al lado del precio */
+.unidad-precio {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #7a7591;
+}
+
+/* la pastillita verde de "disponible hoy" */
+.pastilla-disponible {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #e6faf2;
+  color: #0e9e5e;
+  border: 1.5px solid rgba(30, 203, 123, 0.3);
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  margin-top: 1rem;
+}
+
+.punto-verde {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%; /* circulo perfecto */
+  background-color: #1ecb7b;
+  animation: parpadeo-verde 2s ease infinite; 
+}
+
+@keyframes parpadeo-verde {
+  0%   { box-shadow: 0 0 0 0 rgba(30, 203, 123, 0); }
+  50%  { box-shadow: 0 0 0 5px rgba(30, 203, 123, 0.25); }
+  100% { box-shadow: 0 0 0 0 rgba(30, 203, 123, 0); }
+}
+
+
+/* la linea de colores que separa secciones */
+.linea-colores {
+  height: 3px;
+  background: linear-gradient(90deg, #5c3bff, #ff5c87, #ffe347); /* de morado a rosado a amarillo */
+  border-radius: 9999px;
+  margin: 3rem 0;
+  opacity: 0.6;
+}
