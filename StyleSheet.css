@@ -514,3 +514,150 @@ select {
   margin: 3rem 0;
   opacity: 0.6;
 }
+
+.cuadricula-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+ 
+/* //flujo */
+.etiqueta-seccion {
+  display: inline-block;
+  font-family: var(--fuente-display);
+  font-size: 0.72rem;
+  color: var(--rosado);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+ 
+.titulo-seccion {
+  font-family: var(--fuente-normal);  
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--morado);             
+  margin-top: 0.5rem;                 
+  margin-bottom: 1.5rem;              
+}
+ 
+.descripcion-seccion {
+  color: var(--texto-gris);
+  font-size: 1.15rem;
+  line-height: 1.75;
+  max-width: 560px;
+}
+ 
+/* Subrayado amarillo (igual que en el hero) */
+.texto-resaltado {
+  background: linear-gradient(transparent 55%, var(--amarillo) 55%);
+  padding: 0 3px;
+}
+
+/* Secciones */
+.seccion       { padding: 4rem 0; }
+.seccion-chica { padding: 2rem 0; }
+ 
+.cuadricula-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+ 
+.etiqueta-seccion {
+  display: inline-block;
+  font-family: var(--fuente-display);
+  font-size: 0.72rem;
+  color: var(--color-rosado);      
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+ 
+.titulo-seccion {
+  font-family: var(--fuente-elegante);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--color-morado);     
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+ 
+.descripcion-seccion {
+  color: var(--color-texto-gris);  
+  font-size: 1.15rem;
+  line-height: 1.75;
+  max-width: 560px;
+}
+ 
+.texto-resaltado {
+  background: linear-gradient(transparent 55%, var(--color-amarillo) 55%);
+  padding: 0 3px;
+}
+ 
+ 
+/* --- Lista de pasos ---  */
+.lista-pasos {
+  display: flex;
+  flex-direction: column;
+}
+ 
+.fila-paso {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+}
+ 
+.lado-numero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+ 
+.numero-paso {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background-color: var(--color-morado-claro); 
+  color: var(--color-morado);                 
+  border: 2px solid rgba(92, 59, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fuente-display);
+  font-size: 0.72rem;
+  flex-shrink: 0;
+}
+ 
+.linea-paso {
+  width: 2px;
+  flex: 1;
+  min-height: 36px;
+  background-color: var(--color-borde);  
+  margin: 6px 0;
+}
+ 
+
+.fila-paso:last-child .linea-paso {
+  display: none;
+}
+ 
+.contenido-paso {
+  padding-top: 0.4rem;
+  padding-bottom: 2.5rem;
+}
+ 
+.titulo-paso {
+  font-family: var(--fuente-elegante);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  color: var(--color-texto);     
+}          
+ 
+.descripcion-paso{
+  font-size: 0.85rem;
+  color: var(--color-texto-gris);       
+  line-height: 1.7;
+  font-weight: 500;
+}
