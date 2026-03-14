@@ -429,7 +429,6 @@ select {
   flex-wrap: wrap; 
 }
 
-/* una etiqueta individual */
 .etiqueta {
   display: inline-block;
   padding: 0.25rem 0.75rem;
@@ -441,7 +440,6 @@ select {
   background-color: #f0eee9;
 }
 
-/* cuando paso el mouse encima de una etiqueta */
 .etiqueta:hover {
   background-color: #ede9ff;
   border-color: #5c3bff;
@@ -460,7 +458,6 @@ select {
   color: #0e9e5e;
 }
 
-/* el precio grande */
 .precio-tarjeta {
   font-family: 'Noto Serif Display', serif;
   font-size: 1.4rem;
@@ -468,7 +465,6 @@ select {
   color: #5c3bff;
 }
 
-/* el "/hora" al lado del precio */
 .unidad-precio {
   font-family: 'Nunito', sans-serif;
   font-size: 0.85rem;
@@ -476,7 +472,6 @@ select {
   color: #7a7591;
 }
 
-/* la pastillita verde de "disponible hoy" */
 .pastilla-disponible {
   display: inline-flex;
   align-items: center;
@@ -494,7 +489,7 @@ select {
 .punto-verde {
   width: 7px;
   height: 7px;
-  border-radius: 50%; /* circulo perfecto */
+  border-radius: 50%;
   background-color: #1ecb7b;
   animation: parpadeo-verde 2s ease infinite; 
 }
@@ -505,8 +500,6 @@ select {
   100% { box-shadow: 0 0 0 0 rgba(30, 203, 123, 0); }
 }
 
-
-/* la linea de colores que separa secciones */
 .linea-colores {
   height: 3px;
   background: linear-gradient(90deg, #5c3bff, #ff5c87, #ffe347); /* de morado a rosado a amarillo */
@@ -526,7 +519,7 @@ select {
   display: inline-block;
   font-family: var(--fuente-display);
   font-size: 0.72rem;
-  color: var(--rosado);
+  color: var(--color-rosado);
   letter-spacing: 0.1em;
   margin-bottom: 0.75rem;
 }
@@ -752,8 +745,8 @@ select {
 
 }
 
-/* formularios de login y request */
 
+/* formularios de login y request */
 .campo-formulario {
   display: flex;
   flex-direction: column; 
@@ -774,7 +767,7 @@ select {
   border-radius: 10px;
   background-color: var(--color-fondo);
   color: var(--color-texto);
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--fuente-elegante);
   font-size: 0.95rem;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
@@ -862,4 +855,183 @@ form > .boton {
 .boton-cancelar:hover {
   background-color: var(--color-rosado-claro);
   border-color: var(--color-rosado);
+}
+
+
+/* Página Registro */
+.pagina-registro {
+  min-height: calc(100vh - 66px); 
+  display: flex;
+  align-items: center;           
+  padding: 3rem 0;
+}
+
+.tarjeta-formulario {
+  max-width: 520px;
+  margin: 0 auto; 
+  width: 100%;
+}
+
+.tarjeta-formulario:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.encabezado-formulario {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Crear cuenta */
+.titulo-formulario {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--color-morado);
+  margin-bottom: 0.4rem;
+}
+
+.subtitulo-formulario {
+  font-size: 0.9rem;
+  color: var(--color-texto-gris);
+  font-weight: 600;
+}
+
+/* Contenedor de las dos opciones en fila */
+.selector-rol {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+/* la caja clickeable */
+.opcion-rol {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 14px;
+  border: 2px solid var(--color-borde);
+  background-color: var(--color-fondo-gris);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.opcion-rol:hover {
+  border-color: var(--color-morado);
+  background-color: var(--color-morado-claro);
+}
+
+/* Cuando esta opción está seleccionada el JS agrega esta clase */
+.opcion-activa {
+  border-color: var(--color-morado);
+  background-color: var(--color-morado-claro);
+}
+
+.icono-rol {
+  font-size: 1.5rem;
+  line-height: 1;
+  flex-shrink: 0; /* no se encoge si falta espacio */
+}
+
+.texto-rol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.nombre-rol {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--color-texto);
+}
+
+.descripcion-rol {
+  font-size: 0.72rem;
+  color: var(--color-texto-gris);
+  font-weight: 600;
+}
+
+
+/* Campos del formulario */
+
+/* agrupamos label + input + mensaje de error */
+.campo-formulario {
+  display: flex;
+  flex-direction: column; 
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+/* El texto que dice "Nombre completo", "Correo", etc. */
+.campo-formulario label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-texto);
+}
+
+/* El campo de texto donde el usuario escribe */
+.campo-formulario input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid var(--color-borde);
+  border-radius: 10px;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.campo-formulario input:focus {
+  outline: none;                            
+  border-color: var(--color-morado);
+  box-shadow: 0 0 0 3px var(--color-morado-claro);
+}
+
+.error-text {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-rosado);
+  min-height: 1rem;
+}
+
+
+/* Boton de envio */
+.boton-ancho {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+
+.texto-pie-formulario {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--color-texto-gris);
+  font-weight: 600;
+}
+
+/* El link dentro del texto del pie */
+.link-formulario {
+  color: var(--color-morado);
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+.link-formulario:hover {
+  opacity: 0.7;
+}
+
+
+/* Responsive */
+@media (max-width: 500px) {
+  .selector-rol {
+    grid-template-columns: 1fr;
+  }
+  .tarjeta-formulario {
+    margin: 0 1rem;
+  }
+
 }
