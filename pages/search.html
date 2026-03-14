@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Buscar tutores - TutorMatch</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../StyleSheet.css" />
+
+</head>
+<body>
+
+  <!-- Barra de navegación -->
+  <nav class="barra-nav">
+    <div class="contenedor">
+      <a href="../index.html" class="logo-nav">tutor<span class="punto-logo">.</span>match</a>
+      <div class="botones-nav">
+        <a href="login.html" class="boton boton-transparente solo-escritorio">Iniciar sesión</a>
+        <a href="registrarse.html" class="boton boton-borde boton-chico">Registrarse</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Encabezado con búsqueda -->
+  <section class="seccion-busqueda">
+
+    <div class="contenedor">
+      <span class="etiqueta-seccion">// tutores</span>
+      <h1 class="titulo-busqueda">Encuentra tu tutor ideal</h1>
+
+      <div class="fila-filtros">
+        <input
+          id="inputBusqueda"
+          class="input-busqueda"
+          type="text"
+          placeholder="Buscar por nombre o materia..."
+        />
+        <select id="selectModalidad" class="select-filtro">
+          <option value="">Modalidad</option>
+          <option value="online">Online</option>
+          <option value="presencial">Presencial</option>
+        </select>
+        <select id="selectPrecio" class="select-filtro">
+          <option value="">Precio</option>
+          <option value="bajo">Hasta $30.000/hr</option>
+          <option value="medio">$30.000 - $60.000/hr</option>
+          <option value="alto">Más de $60.000/hr</option>
+        </select>
+        <select id="selectCalificacion" class="select-filtro">
+          <option value="">Calificación</option>
+          <option value="4.5">4.5★ o más</option>
+          <option value="4.0">4.0★ o más</option>
+        </select>
+      </div>
+
+      <!-- Tags de materias -->
+      <div class="fila-materias" id="filaMaterias">
+        <button class="etiqueta-materia activa" data-materia="">Todas</button>
+        <button class="etiqueta-materia" data-materia="Matemáticas">Matemáticas</button>
+        <button class="etiqueta-materia" data-materia="Programación">Programación</button>
+        <button class="etiqueta-materia" data-materia="Física">Física</button> 
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Contenido principal -->
+  <div class="contenedor">
+    <div class="layout-busqueda">
+
+      <!-- Panel lateral -->
+      <aside class="panel-filtros">
+        <div class="tarjeta tarjeta-filtros">
+          <p class="titulo-filtros">Filtros</p>
+
+          <div class="grupo-filtro">
+            <label class="label-filtro" for="filtroDisponibilidad">Disponibilidad</label>
+            <select id="filtroDisponibilidad" class="select-filtro-lateral">
+              <option value="">Cualquier día</option>
+              <option value="hoy">Disponible hoy</option>
+              <option value="semana">Esta semana</option>
+            </select>
+          </div>
+
+          <div class="grupo-filtro">
+            <label class="label-filtro" for="filtroOrden">Ordenar por</label>
+            <select id="filtroOrden" class="select-filtro-lateral">
+              <option value="calificacion">Mejor calificación</option>
+              <option value="precio-asc">Precio: menor a mayor</option>
+              <option value="precio-desc">Precio: mayor a menor</option>
+              <option value="resenas">Más reseñas</option>
+            </select>
+          </div>
+
+          <button class="boton-limpiar" id="botonLimpiar">✕ Limpiar filtros</button>
+        </div>
+      </aside>
+
+      <!-- Área de resultados -->
+      <main>
+        <div class="cabecera-resultados">
+          <p class="contador-resultados">
+            Mostrando <span id="numeroResultados">0</span> tutores
+          </p>
+        </div>
+        <div class="grilla-tutores" id="grillaTutores"></div>
+      </main>
+
+    </div>
+  </div>
+
+  <!-- Pie de página -->
+  <footer id="pie-pagina">
+    <p>© 2026 TutorMatch - Ana Henao / Samuel Acosta</p>
+  </footer>
+
+</body>
+</html>
