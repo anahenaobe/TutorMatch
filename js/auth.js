@@ -6,13 +6,21 @@ import {
 } from "./storage.js";
 
 const SESSION_KEY = "session";
+const REGISTERED_USERS_KEY = "registeredUsers";
 
 export function getSession() {
   return loadFromLocalStorage(SESSION_KEY, null);
 }
 
+export function getAllUsers() {
+  const registeredUsers = loadFromLocalStorage(REGISTERED_USERS_KEY, []);
+  return [...usersMock, ...registeredUsers];
+}
+
 export function login(email, password) {
-  const user = usersMock.find(
+  const users = getAllUsers();
+
+  const user = users.find(
     (u) => u.email === email && u.password === password
   );
 
@@ -22,7 +30,7 @@ export function login(email, password) {
 
   const session = {
     id: user.id,
-    name: user.name,
+    name: user.name || user.nombre,
     email: user.email,
     role: user.role,
     isAuthenticated: true
