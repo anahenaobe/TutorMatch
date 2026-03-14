@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reservar tutoría - TutorMatch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../StyleSheet.css" />
 </head>
+
 <body>
+
+    <nav class="barra-nav">
+    <div class="contenedor">
+      <a href="../index.html" class="logo-nav">tutor<span class="punto-logo">.</span>match</a>
+      <div class="botones-nav">
+        <a href="search.html" class="boton boton-transparente solo-escritorio">Buscar tutores</a>
+        <a href="my-bookings.html" class="boton boton-borde boton-chico">Mis reservas</a>
+      </div>
+    </div>
+  </nav>
+
   <main class="contenedor" style="padding: 3rem 0;">
     <div class="tarjeta" style="max-width: 600px; margin: 0 auto;">
       <h1>Reservar tutoría</h1>
@@ -34,51 +48,55 @@
     </div>
   </main>
 
-  <script type="module">
+<script type="module">
     import { getSession } from "../js/auth.js";
     import { createBooking } from "../js/bookings.js";
     import { validateBooking } from "../js/validators.js";
     import { showFieldError, clearErrors } from "../js/ui.js";
-
+ 
     const form = document.getElementById("bookingForm");
     const generalError = document.getElementById("booking-general-error");
     const successMessage = document.getElementById("booking-success");
-
+ 
+    // Leer el id del tutor desde la URL (?id=t1)
+    const params = new URLSearchParams(window.location.search);
+    const tutorId = params.get("id") || "t1";
+ 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
       clearErrors(["date", "time"]);
       generalError.textContent = "";
       successMessage.textContent = "";
-
+ 
       const session = getSession();
-
+ 
       if (!session) {
         generalError.textContent = "Debes iniciar sesión para reservar";
         return;
       }
-
+ 
       const date = document.getElementById("date").value;
       const time = document.getElementById("time").value;
-
+ 
       const errors = validateBooking({ date, time });
-
+ 
       if (errors.date) showFieldError("date", errors.date);
       if (errors.time) showFieldError("time", errors.time);
-
+ 
       if (Object.keys(errors).length > 0) return;
-
+ 
       const result = createBooking({
-        tutorId: "t1",
+        tutorId,
         studentId: session.id,
         date,
         time
       });
-
+ 
       if (!result.success) {
         generalError.textContent = result.message;
         return;
       }
-
+ 
       successMessage.textContent = "Reserva creada correctamente";
       form.reset();
     });
