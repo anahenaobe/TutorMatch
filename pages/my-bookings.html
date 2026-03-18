@@ -16,30 +16,33 @@
       <a href="../index.html" class="logo-nav">tutor<span class="punto-logo">.</span>match</a>
       <div class="botones-nav">
         <a href="search.html" class="boton boton-transparente solo-escritorio">Buscar tutores</a>
-        <a href="login.html" class="boton boton-borde boton-chico">Cerrar sesión</a>
+        <a href="login.html" id="btnCerrarSesion" class="boton boton-borde boton-chico">Cerrar sesión</a>
       </div>
     </div>
   </nav>
 
   <main class="contenedor" style="padding: 3rem 0;">
     <h1>Mis reservas</h1>
-    <div id="bookingsContainer" class="columna-tarjeta" style="margin-top: 2rem;"></div>
+    <!--anuncia cmabios de contenido sin interrumpir al usuario-->
+    <div id="bookingsContainer" class="columna-tarjeta" style="margin-top: 2rem;" aria-live="polite"></div>
   </main>
 
   <script type="module">
-    import { getSession } from "../js/auth.js";
+    import { getSession, logout } from "../js/auth.js";
     import { getBookings, cancelBooking } from "../js/bookings.js";
-    import { renderEmptyState } from "../js/ui.js";
+    import { renderEmptyState, showToast, setLoading} from "../js/ui.js";
 
     const container = document.getElementById("bookingsContainer");
     const session = getSession();
 
-    function renderBookings() {
-      const allBookings = getBookings();
-      const userBookings = allBookings.filter(
-        (booking) => booking.studentId === session?.id
-      );
+    document.getElementById("btnCerrarSesion").addEventListener("click", (e) => {
+      e.preventDefault();
+      logout(); // elimina la sesión del localStorage
+      window.location.href = "login.html";
+    });
 
+    //modificamos renderbookings
+    async function renderBookings(){
       if (!session) {
         renderEmptyState(
           container,
@@ -48,6 +51,13 @@
         );
         return;
       }
+
+      try {
+        // await porque getBookings() ahora es una promesa
+        const allBookings = await getBookings();
+        const userBookings = allBookings.filter(
+          (booking) => booking.studentId === session.id
+        );
 
       if (userBookings.length === 0) {
         renderEmptyState(
@@ -59,8 +69,8 @@
       }
 
      container.innerHTML = userBookings
-  .map(
-    (booking) => `
+       .map(
+        (booking) => `
       <div class="tarjeta tarjeta-reserva">
         <h3>Reserva ${booking.id}</h3>
         <p><strong>Fecha:</strong> ${booking.date}</p>
@@ -82,25 +92,41 @@
 
         ${
           booking.status !== "cancelled"
-            ? `<button class="boton boton-borde boton-cancelar" data-id="${booking.id}">
+            ? `<button 
+                class="boton boton-borde boton-cancelar" 
+                data-id="${booking.id}"
+                aria-label="Cancelar reserva del ${booking.date} a las ${booking.date}">
                 Cancelar reserva
               </button>`
             : ""
         }
       </div>
-    `
-  )
-  .join("");
+     `
+     )
+     .join("");
 
       document.querySelectorAll("[data-id]").forEach((button) => {
-        button.addEventListener("click", () => {
-          cancelBooking(button.dataset.id);
-          renderBookings();
+        button.addEventListener("click", async () => {
+          setLoading (button, true, "Cancelar reserva"); 
+          try{
+            await cancelBooking(button.dataset.id); // await porque ahora es async
+            showToast("Reserva cancelada", "success"); //toast de confirmación
+            await renderBookings(); // re-renderizar la lista actualizada
+          }catch (err) {
+              // manejo de error al cancelar
+              showToast("Error al cancelar. Intenta de nuevo.", "error");
+              setLoading(button, false, "Cancelar reserva");
+            }
         });
       });
+    }catch (err) {
+        //estado de error si falla la carga de reservas
+        container.innerHTML = `<p class="error-text" role="alert">Error al cargar las reservas. Recarga la página.</p>`;
     }
+  }
 
     renderBookings();
   </script>
+
 </body>
 </html>

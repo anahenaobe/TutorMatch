@@ -25,17 +25,45 @@
     <div class="tarjeta" style="max-width: 600px; margin: 0 auto;">
       <h1>Reservar tutoría</h1>
 
+      <!-- Escenario alterno: sin sesión iniciada -->
+      <div id="sinSesion" style="display:none;">
+        <p class="error-text" role="alert">Debes iniciar sesión para hacer una reserva.</p>
+        <a href="login.html" class="boton boton-morado boton-grande" style="margin-top:1rem; display:inline-block;">
+          Iniciar sesión
+        </a>
+      </div>
+ 
+      <!-- Escenario alterno: usuario es tutor -->
+      <div id="esTutor" style="display:none;">
+        <p class="error-text" role="alert">Los tutores no pueden reservar tutorías.</p>
+        <a href="search.html" class="boton boton-borde boton-grande" style="margin-top:1rem; display:inline-block;">
+          Volver al buscador
+        </a>
+      </div>
+
+      <!-- Formulario principal: solo para estudiantes autenticados -->
       <form id="bookingForm" novalidate>
         <div class="campo-formulario">
           <label for="date">Fecha</label>
-          <input id="date" name="date" type="date" />
+          <!--Aria-required inidica campo obligatorio y aria-describedby conecta el input con su mensaje de error-->
+          <input 
+          id="date"
+          name="date" 
+          type="date" 
+          aria-required="true" 
+          aria-describedby="date-error"/>
           <small id="date-error" class="error-text"></small>
         </div>
 
         <div class="campo-formulario">
           <label for="time">Hora</label>
-          <input id="time" name="time" type="time" />
-          <small id="time-error" class="error-text"></small>
+          <input 
+          id="time" 
+          name="time" 
+          type="time" 
+          aria-required="true" 
+          aria-describedby="date-error" />
+          <small id="time-error" class="error-text" role="alert"></small>
         </div>
 
         <p id="booking-general-error" class="error-text"></p>
@@ -52,29 +80,37 @@
     import { getSession } from "../js/auth.js";
     import { createBooking } from "../js/bookings.js";
     import { validateBooking } from "../js/validators.js";
-    import { showFieldError, clearErrors } from "../js/ui.js";
+    import { showFieldError, clearErrors, setLoading, showToast } from "../js/ui.js";
  
     const form = document.getElementById("bookingForm");
     const generalError = document.getElementById("booking-general-error");
     const successMessage = document.getElementById("booking-success");
+    //referenciamos al botón para controlar su estado de loading
+    const submitBtn = document.getElementById("submitBtn");
+    const sinSesion = document.getElementById("sinSesion");
+    const esTutor = document.getElementById("esTutor");
  
     // Leer el id del tutor desde la URL (?id=t1)
     const params = new URLSearchParams(window.location.search);
     const tutorId = params.get("id") || "t1";
+
+      if (!session) {
+      // Escenario alterno 1, mostrar bloque de login
+      form.style.display = "none";
+      sinSesion.style.display = "block";
+    } else if (session.role === "tutor") {
+      // Escenario alterno 2, bloquea la reserva por rol
+      form.style.display = "none";
+      esTutor.style.display = "block";
+    }
  
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
       clearErrors(["date", "time"]);
       generalError.textContent = "";
       successMessage.textContent = "";
  
-      const session = getSession();
- 
-      if (!session) {
-        generalError.textContent = "Debes iniciar sesión para reservar";
-        return;
-      }
- 
+    
       const date = document.getElementById("date").value;
       const time = document.getElementById("time").value;
  
@@ -84,21 +120,36 @@
       if (errors.time) showFieldError("time", errors.time);
  
       if (Object.keys(errors).length > 0) return;
+
+      setLoading(submitBtn, true, "Confirmar reserva");
  
-      const result = createBooking({
-        tutorId,
-        studentId: session.id,
-        date,
-        time
-      });
- 
+      try {
+      //createBooking es async, se usa await
+      const result = await createBooking({
+      tutorId,
+      studentId: session.id,
+      date,
+      time
+      }); 
+
       if (!result.success) {
-        generalError.textContent = result.message;
-        return;
+      generalError.textContent = result.message;
+      return;
       }
- 
-      successMessage.textContent = "Reserva creada correctamente";
-      form.reset();
+
+       // toast de éxito visible en la esquina
+        showToast("¡Reserva creada correctamente!", "success");
+        successMessage.textContent = "Reserva creada correctamente";
+        form.reset();
+      } catch (err) {
+        // manejo de errores inesperados (estado "error" del parcial)
+        generalError.textContent = "Ocurrió un error inesperado. Intenta de nuevo.";
+      } finally {
+        //siempre restaurar el botón, haya o no error
+        setLoading(submitBtn, false, "Confirmar reserva");
+      
+      }
+
     });
   </script>
 </body>
