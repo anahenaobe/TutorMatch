@@ -79,19 +79,17 @@
         tutor<span class="punto-logo">.</span>match
       </a>
 
-      <div class="botones-nav">
-        <a href="pages/login.html" class="boton boton-transparente solo-escritorio">
-          Iniciar sesión
-        </a>
-        <a href="pages/registrarse.html" class="boton boton-borde boton-chico">
-          Registrarse
-        </a>
-        <a href="pages/search.html" class="boton boton-morado boton-chico">
-          Buscar tutor →
-        </a>
-      </div>
-
-    </div>
+     <div class="botones-nav" id="navButtons">
+  <a href="pages/login.html" id="loginLink" class="boton boton-transparente solo-escritorio">
+    Iniciar sesión
+  </a>
+  <a href="pages/registrarse.html" id="registerLink" class="boton boton-borde boton-chico">
+    Registrarse
+  </a>
+  <a href="pages/search.html" id="searchLink" class="boton boton-morado boton-chico">
+    Buscar tutor →
+  </a>
+</div>
   </nav>
 
   <!--Sección de hero-->
@@ -336,6 +334,47 @@
   <script>
     console.log("TutorMatch cargado ✅");
   </script>
+
+  <script type="module">
+  import { getSession, logout } from "./js/auth.js";
+
+  const session = getSession();
+  const navButtons = document.getElementById("navButtons");
+  const loginLink = document.getElementById("loginLink");
+  const registerLink = document.getElementById("registerLink");
+  const searchLink = document.getElementById("searchLink");
+
+  if (session) {
+    if (loginLink) loginLink.style.display = "none";
+    if (registerLink) registerLink.style.display = "none";
+
+    const userInfo = document.createElement("span");
+    userInfo.className = "boton boton-transparente";
+    userInfo.textContent = `Hola, ${session.name} (${session.role})`;
+
+    const logoutButton = document.createElement("button");
+    logoutButton.className = "boton boton-borde boton-chico";
+    logoutButton.textContent = "Cerrar sesión";
+
+    logoutButton.addEventListener("click", () => {
+      logout();
+      window.location.reload();
+    });
+
+    navButtons.prepend(userInfo);
+    navButtons.appendChild(logoutButton);
+
+    if (session.role === "tutor" && searchLink) {
+      searchLink.textContent = "Mi perfil tutor";
+      searchLink.href = "pages/tutor.html?id=t1";
+    }
+
+    if (session.role === "estudiante" && searchLink) {
+      searchLink.textContent = "Buscar tutor →";
+      searchLink.href = "pages/search.html";
+    }
+  }
+</script>
 
 </body>
 
