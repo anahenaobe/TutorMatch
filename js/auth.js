@@ -9,7 +9,8 @@ const SESSION_KEY = "session";
 const REGISTERED_USERS_KEY = "registeredUsers";
 
 export function getSession() {
-  return loadFromLocalStorage(SESSION_KEY, null);
+  const session = localStorage.getItem("session");
+  return session ? JSON.parse(session) : null;
 }
 
 export function getAllUsers() {
@@ -17,30 +18,31 @@ export function getAllUsers() {
   return [...usersMock, ...registeredUsers];
 }
 
-export function login(email, password) {
+export async function login(email, password) {
+  // Simulación de usuarios (puede venir de API)
   const users = getAllUsers();
 
+
+  // Buscar usuario
   const user = users.find(
     (u) => u.email === email && u.password === password
   );
 
   if (!user) {
-    return { success: false, message: "Correo o contraseña incorrectos" };
+    return {
+      success: false,
+      message: "Correo o contraseña incorrectos"
+    };
   }
 
-  const session = {
-    id: user.id,
-    name: user.name || user.nombre,
-    email: user.email,
-    role: user.role,
-    isAuthenticated: true
+  localStorage.setItem("session", JSON.stringify(user));
+
+  return {
+    success: true,
+    user
   };
-
-  saveToLocalStorage(SESSION_KEY, session);
-
-  return { success: true, user: session };
 }
 
 export function logout() {
-  removeFromLocalStorage(SESSION_KEY);
+  localStorage.removeItem("session");
 }

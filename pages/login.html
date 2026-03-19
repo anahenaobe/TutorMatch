@@ -100,49 +100,55 @@
     </div>
   </main>
 
-  <script type="module">
-    import { login } from "../js/auth.js";
-    import { validateLogin } from "../js/validators.js";
-    //importamos setLoading para el boton de submit
-    import { showFieldError, clearErrors, setLoading } from "../js/ui.js";
+ <script type="module">
+  import { login } from "../js/auth.js";
+  import { validateLogin } from "../js/validators.js";
+  import { showFieldError, clearErrors, setLoading } from "../js/ui.js";
 
-    const form = document.getElementById("loginForm");
-    const generalError = document.getElementById("login-general-error");
-    const submitBtn = document.getElementById("submitBtn");
+  const form = document.getElementById("loginForm");
+  const generalError = document.getElementById("login-general-error");
+  const submitBtn = document.getElementById("submitBtn");
 
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      clearErrors(["email", "password"]);
-      generalError.textContent = "";
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+    clearErrors(["email", "password"]);
+    generalError.textContent = "";
 
-      const errors = validateLogin({ email, password });
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-      if (errors.email) showFieldError("email", errors.email);
-      if (errors.password) showFieldError("password", errors.password);
+    const errors = validateLogin({ email, password });
 
-     
-      try {
-        const result = await login(email, password);
- 
-        if (!result.success) {
-          generalError.textContent = result.message;
-          return;
-        }
- 
-        window.location.href = "../index.html";
-      } catch (err) {
-        //manejo de error inesperado
-        generalError.textContent = "Error de conexión. Intenta de nuevo.";
-      } finally {
-        //restauramos botón siempre
-        setLoading(submitBtn, false, "Entrar");
+    if (errors.email) showFieldError("email", errors.email);
+    if (errors.password) showFieldError("password", errors.password);
+
+    if (Object.keys(errors).length > 0) return;
+
+    //Activar loading
+    setLoading(submitBtn, true, "Entrando...");
+
+    try {
+      const result = await login(email, password);
+
+      console.log("Resultado login:", result); 
+
+      if (!result.success) {
+        generalError.textContent = result.message;
+        return;
       }
-    });
-  </script>
 
+      // Redirección 
+      window.location.href = "/index.html";
+
+    } catch (err) {
+      console.error(err);
+      generalError.textContent = "Error de conexión. Intenta de nuevo.";
+    } finally {
+      setLoading(submitBtn, false, "Entrar");
+    }
+  });
+</script>
 </body>
 
 </html>

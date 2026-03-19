@@ -30,7 +30,7 @@
   <script type="module">
     import { getSession, logout } from "../js/auth.js";
     import { getBookings, cancelBooking } from "../js/bookings.js";
-    import { renderEmptyState, showToast, setLoading} from "../js/ui.js";
+    import { renderEmptyState} from "../js/ui.js";
 
     const container = document.getElementById("bookingsContainer");
     const session = getSession();
@@ -95,7 +95,7 @@
             ? `<button 
                 class="boton boton-borde boton-cancelar" 
                 data-id="${booking.id}"
-                aria-label="Cancelar reserva del ${booking.date} a las ${booking.date}">
+                aria-label="Cancelar reserva del ${booking.date} a las ${booking.time}">
                 Cancelar reserva
               </button>`
             : ""
@@ -110,7 +110,6 @@
           setLoading (button, true, "Cancelar reserva"); 
           try{
             await cancelBooking(button.dataset.id); // await porque ahora es async
-            showToast("Reserva cancelada", "success"); //toast de confirmación
             await renderBookings(); // re-renderizar la lista actualizada
           }catch (err) {
               // manejo de error al cancelar

@@ -94,15 +94,19 @@
     const params = new URLSearchParams(window.location.search);
     const tutorId = params.get("id") || "t1";
 
+    (async () => {
+    const session = await getSession();
+
       if (!session) {
-      // Escenario alterno 1, mostrar bloque de login
-      form.style.display = "none";
-      sinSesion.style.display = "block";
-    } else if (session.role === "tutor") {
-      // Escenario alterno 2, bloquea la reserva por rol
-      form.style.display = "none";
-      esTutor.style.display = "block";
-    }
+        // Escenario alterno 1, mostrar bloque de login
+        form.style.display = "none";
+        sinSesion.style.display = "block";
+      } else if (session.role === "tutor") {
+        // Escenario alterno 2, bloquea la reserva por rol
+        form.style.display = "none";
+        esTutor.style.display = "block";
+      }
+    })();
  
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -149,8 +153,9 @@
         setLoading(submitBtn, false, "Confirmar reserva");
       
       }
+    }
 
-    });
+    );
   </script>
 </body>
 </html>

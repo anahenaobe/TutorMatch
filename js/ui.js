@@ -26,3 +26,8 @@ export function renderEmptyState(container, title, description) {
     </div>
   `;
 }
+
+export function setLoading(button, isLoading, text) {
+  button.disabled = isLoading;
+  button.textContent = text;
+}
