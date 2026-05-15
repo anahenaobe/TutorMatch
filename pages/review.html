@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dejar Reseña - TutorMatch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../StyleSheet.css" />
+  <style>
+    .review-wrap {
+      max-width: 560px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+    .tarjeta-review {
+      background: var(--color-blanco);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio);
+      padding: 2rem;
+    }
+    .stars-row {
+      display: flex;
+      gap: .4rem;
+      margin: 1rem 0;
+    }
+    .star-btn {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #ccc;
+      transition: color .15s;
+      padding: 0;
+      line-height: 1;
+    }
+    .star-btn.activa { color: #f5a623; }
+    .star-btn:hover { color: #f5a623; }
+    .review-info {
+      background: var(--color-fondo);
+      border-radius: var(--radio);
+      padding: .75rem 1rem;
+      font-size: 13px;
+      margin-bottom: 1.5rem;
+      color: var(--color-texto-secundario);
+    }
+    .review-info p { margin: .2rem 0; }
+    #reviewSuccess {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      color: var(--color-exito, #2e7d32);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .error-text { color: var(--color-error); font-size: 13px; margin-top: .25rem; }
+  </style>
+</head>
+<body>
+
+  <nav class="barra-nav">
+    <div class="contenedor">
+      <a href="../index.html" class="logo-nav">tutor<span class="punto-logo">.</span>match</a>
+      <div class="botones-nav">
+        <a href="my-bookings.html" class="boton boton-borde boton-chico">← Mis reservas</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="review-wrap">
+    <h1 class="titulo-pagina" style="margin-bottom:1.5rem;">Dejar una reseña</h1>
+
+    <div class="tarjeta-review">
+      <div id="reviewBookingInfo" class="review-info">
+        <p>Cargando información de la sesión...</p>
+      </div>
+
+      <div id="reviewSuccess"></div>
+
+      <form id="reviewForm" novalidate>
+        <div class="campo-formulario">
+          <label class="etiqueta-campo">Calificación *</label>
+          <div class="stars-row" role="group" aria-label="Calificación de 1 a 5 estrellas">
+            <button type="button" class="star-btn" data-value="1" aria-label="1 estrella">☆</button>
+            <button type="button" class="star-btn" data-value="2" aria-label="2 estrellas">☆</button>
+            <button type="button" class="star-btn" data-value="3" aria-label="3 estrellas">☆</button>
+            <button type="button" class="star-btn" data-value="4" aria-label="4 estrellas">☆</button>
+            <button type="button" class="star-btn" data-value="5" aria-label="5 estrellas">☆</button>
+          </div>
+        </div>
+
+        <div class="campo-formulario">
+          <label class="etiqueta-campo" for="review-comment">Comentario *</label>
+          <textarea
+            id="review-comment"
+            class="entrada-formulario"
+            rows="5"
+            maxlength="1000"
+            placeholder="Describe tu experiencia con este tutor..."
+            aria-describedby="review-comment-error"
+            required
+          ></textarea>
+          <p id="review-comment-error" class="error-text" aria-live="polite"></p>
+        </div>
+
+        <p id="review-general-error" class="error-text" aria-live="polite"></p>
+
+        <button id="reviewSubmitBtn" type="submit" class="boton boton-morado" style="width:100%;">
+          Enviar reseña
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="../js/reviews.js"></script>
+</body>
+</html>

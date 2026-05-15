@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+    
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat - TutorMatch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../StyleSheet.css" />
+
+</head>
+<body>
+
+  <nav class="barra-nav">
+    <div class="contenedor">
+      <a href="../index.html" class="logo-nav">tutor<span class="punto-logo">.</span>match</a>
+      <div class="botones-nav">
+        <a href="my-bookings.html" class="boton boton-borde boton-chico">← Mis reservas</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="chat-layout">
+    <div id="bookingInfo" class="chat-booking-info">Cargando información...</div>
+    <p id="chatError"></p>
+    <div id="messagesContainer" class="mensajes-container" aria-live="polite">
+      <p class="texto-vacio">Cargando mensajes...</p>
+    </div>
+    <div class="chat-input-fila">
+      <textarea
+        id="messageInput"
+        placeholder="Escribe un mensaje... (Enter para enviar)"
+        aria-label="Escribe un mensaje"
+        maxlength="2000"
+      ></textarea>
+      <button id="sendBtn" class="boton boton-morado boton-grande" style="white-space:nowrap;">
+        Enviar
+      </button>
+    </div>
+  </div>
+
+  <script type="module" src="../js/chat.js"></script>
+</body>
+</html>

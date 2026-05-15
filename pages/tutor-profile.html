@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Perfil de Tutor - TutorMatch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../StyleSheet.css" />
+  <style>
+    .perfil-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+    @media (max-width: 768px) { .perfil-grid { grid-template-columns: 1fr; } }
+    .tarjeta-seccion {
+      background: var(--color-blanco);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .tarjeta-oferta, .tarjeta-slot {
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio);
+      padding: .75rem 1rem;
+      margin-bottom: .75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: .75rem;
+    }
+    .tarjeta-slot { align-items: center; }
+    .nivel {
+      font-size: 12px;
+      background: var(--color-morado-claro, #ede9fe);
+      color: var(--color-morado);
+      border-radius: 20px;
+      padding: 2px 8px;
+    }
+    .tabs {
+      display: flex;
+      gap: .5rem;
+      border-bottom: 2px solid var(--color-borde);
+      margin-bottom: 1.5rem;
+    }
+    .tab {
+      padding: .5rem 1.25rem;
+      border: none;
+      background: none;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--color-texto-secundario);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+    }
+    .tab.activo {
+      color: var(--color-morado);
+      border-bottom-color: var(--color-morado);
+    }
+    .panel { display: none; }
+    .panel.activo { display: block; }
+    .error-text { color: var(--color-error); font-size: 13px; }
+    .texto-vacio { color: var(--color-texto-secundario); font-size: 14px; font-style: italic; }
+  </style>
+</head>
+<body>
+
+  <nav class="barra-nav">
+    <div class="contenedor">
+      <a href="../index.html" class="logo-nav">tutor<span class="punto-logo">.</span>match</a>
+      <div class="botones-nav">
+        <a href="my-bookings.html" class="boton boton-borde boton-chico">Mis reservas</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="contenedor" style="padding: 2rem 1rem;">
+    <h1 class="titulo-pagina">Mi perfil de tutor</h1>
+
+    <div class="tabs" role="tablist">
+      <button class="tab activo" role="tab" data-panel="panel-perfil">Información</button>
+      <button class="tab" role="tab" data-panel="panel-ofertas">Ofertas</button>
+      <button class="tab" role="tab" data-panel="panel-disponibilidad">Disponibilidad</button>
+    </div>
+
+    <!-- Panel: Información básica -->
+    <div id="panel-perfil" class="panel activo">
+      <div class="tarjeta-seccion">
+        <h2 class="titulo-seccion-perfil">Información básica</h2>
+        <form id="profileForm" novalidate>
+          <div class="campo-formulario">
+            <label class="etiqueta-campo" for="bio">Biografía</label>
+            <textarea id="bio" class="entrada-formulario" rows="3"
+              placeholder="Cuéntale a los estudiantes sobre ti..."></textarea>
+          </div>
+          <div class="campo-formulario">
+            <label class="etiqueta-campo" for="subjects">Materias (separadas por coma) *</label>
+            <input id="subjects" class="entrada-formulario" type="text"
+              placeholder="Cálculo, Álgebra, Física" required />
+          </div>
+          <div class="perfil-grid" style="gap:1rem; margin-bottom:1rem;">
+            <div class="campo-formulario" style="margin:0;">
+              <label class="etiqueta-campo" for="hourlyRate">Precio por hora (COP) *</label>
+              <input id="hourlyRate" class="entrada-formulario" type="number"
+                min="5000" step="1000" placeholder="50000" required />
+            </div>
+            <div class="campo-formulario" style="margin:0;">
+              <label class="etiqueta-campo" for="modality">Modalidad *</label>
+              <select id="modality" class="entrada-formulario">
+                <option value="Online">Online</option>
+                <option value="InPerson">Presencial</option>
+                <option value="Both">Online y Presencial</option>
+              </select>
+            </div>
+          </div>
+          <button id="saveProfileBtn" type="submit" class="boton boton-morado">Guardar perfil</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Panel: Ofertas -->
+    <div id="panel-ofertas" class="panel">
+      <div class="tarjeta-seccion">
+        <h2 class="titulo-seccion-perfil">Mis ofertas activas</h2>
+        <div id="offersContainer"><p class="texto-vacio">Cargando ofertas...</p></div>
+      </div>
+      <div class="tarjeta-seccion">
+        <h2 class="titulo-seccion-perfil">Nueva oferta</h2>
+        <form id="offerForm" novalidate>
+          <div class="perfil-grid" style="gap:1rem;">
+            <div class="campo-formulario" style="margin:0;">
+              <label class="etiqueta-campo" for="offerSubject">Materia *</label>
+              <input id="offerSubject" class="entrada-formulario" type="text"
+                placeholder="Cálculo Diferencial" required />
+            </div>
+            <div class="campo-formulario" style="margin:0;">
+              <label class="etiqueta-campo" for="offerLevel">Nivel *</label>
+              <select id="offerLevel" class="entrada-formulario">
+                <option value="Básico">Básico</option>
+                <option value="Intermedio">Intermedio</option>
+                <option value="Avanzado">Avanzado</option>
+              </select>
+            </div>
+          </div>
+          <div class="campo-formulario">
+            <label class="etiqueta-campo" for="offerDescription">Descripción *</label>
+            <textarea id="offerDescription" class="entrada-formulario" rows="3"
+              placeholder="Describe qué incluye esta tutoría..." required></textarea>
+          </div>
+          <div class="campo-formulario">
+            <label class="etiqueta-campo" for="offerDuration">Duraciones disponibles (min, separadas por coma)</label>
+            <input id="offerDuration" class="entrada-formulario" type="text"
+              placeholder="60,90,120" value="60,90,120" />
+          </div>
+          <button id="addOfferBtn" type="submit" class="boton boton-morado">Añadir oferta</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Panel: Disponibilidad -->
+    <div id="panel-disponibilidad" class="panel">
+      <div class="tarjeta-seccion">
+        <h2 class="titulo-seccion-perfil">Mis horarios</h2>
+        <div id="slotsContainer"><p class="texto-vacio">Cargando horarios...</p></div>
+      </div>
+      <div class="tarjeta-seccion">
+        <h2 class="titulo-seccion-perfil">Agregar horario</h2>
+        <form id="slotForm" novalidate>
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem;">
+            <div class="campo-formulario" style="margin:0;">
+              <label class="etiqueta-campo" for="slotDay">Día *</label>
+              <select id="slotDay" class="entrada-formulario">
+                <option value="1">Lunes</option>
+                <option value="2">Martes</option>
+                <option value="3">Miércoles</option>
+                <option value="4">Jueves</option>
+                <option value="5">Viernes</option>
+                <option value="6">Sábado</option>
+                <option value="0">Domingo</option>
+              </select>
+            </div>
+            <div class="campo-formulario" style="margin:0;">
+              <label class="etiqueta-campo" for="slotStart">Inicio *</label>
+              <input id="slotStart" class="entrada-formulario" type="time" required />
+            </div>
+            <div class="campo-formulario" style="margin:0;">
+              <label class="etiqueta-campo" for="slotEnd">Fin *</label>
+              <input id="slotEnd" class="entrada-formulario" type="time" required />
+            </div>
+          </div>
+          <button id="addSlotBtn" type="submit" class="boton boton-morado" style="margin-top:1rem;">
+            Añadir horario
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Tabs
+    document.querySelectorAll(".tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach(t => t.classList.remove("activo"));
+        document.querySelectorAll(".panel").forEach(p => p.classList.remove("activo"));
+        tab.classList.add("activo");
+        document.getElementById(tab.dataset.panel).classList.add("activo");
+      });
+    });
+  </script>
+  <script type="module" src="../js/tutor-profile.js"></script>
+</body>
+</html>
