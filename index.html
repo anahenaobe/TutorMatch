@@ -9,10 +9,22 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+    rel="stylesheet"
+  />
+
   <link rel="stylesheet" href="StyleSheet.css" />
 
   <style>
+
+    #vistaVisitante,
+    #vistaEstudiante,
+    #vistaTutor {
+      display: none;
+    }
+
     .fila-precio-boton {
       display: flex;
       align-items: center;
@@ -26,16 +38,11 @@
       margin-bottom: 1rem;
     }
 
-    /* ---- Franja de Hero ---- */
     .seccion-hero {
       background-color: var(--color-blanco);
       border-bottom: 1.5px solid var(--color-borde);
       padding: 4rem 0;
       width: 100%;
-    }
-
-    .grilla-hero {
-      display: block;
     }
 
     .titulo-hero {
@@ -57,328 +64,734 @@
       gap: 2rem;
     }
 
+    .panel-dashboard {
+      background: white;
+      border: 1.5px solid var(--color-borde);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    .acciones-dashboard {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .tarjeta-dashboard {
+      background: var(--color-fondo);
+      border: 1px solid var(--color-borde);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: 0.2s;
+    }
+
+    .tarjeta-dashboard:hover {
+      transform: translateY(-3px);
+      border-color: var(--color-morado);
+    }
+
+    .titulo-dashboard {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
     @media (max-width: 768px) {
+
       .interior-tarjeta-franja {
         grid-template-columns: 1fr;
         gap: 1rem;
       }
-    }
-  </style>
 
+      .acciones-dashboard {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+  </style>
 
 </head>
 
 <body>
 
-
-  <!--Barra de navegacíon-->
+  <!-- NAVBAR -->
   <nav class="barra-nav">
+
     <div class="contenedor">
 
       <a href="index.html" class="logo-nav">
         tutor<span class="punto-logo">.</span>match
       </a>
 
-     <div class="botones-nav" id="navButtons">
-  <a href="pages/login.html" id="loginLink" class="boton boton-transparente solo-escritorio">
-    Iniciar sesión
-  </a>
-  <a href="pages/registrarse.html" id="registerLink" class="boton boton-borde boton-chico">
-    Registrarse
-  </a>
-  <a href="pages/search.html" id="searchLink" class="boton boton-morado boton-chico">
-    Buscar tutor →
-  </a>
-   <a href="pages/my-bookings.html" id="registerLink" class="boton boton-morado boton-chico">
-    Mis reservas
-  </a>
-</div>
+      <div class="botones-nav">
+
+        <!-- VISITANTE -->
+        <span id="navVisitante">
+
+          <a
+            href="pages/login.html"
+            class="boton boton-transparente solo-escritorio"
+          >
+            Iniciar sesión
+          </a>
+
+          <a
+            href="pages/registrarse.html"
+            class="boton boton-borde boton-chico"
+          >
+            Registrarse
+          </a>
+
+          <a
+            href="pages/search.html"
+            class="boton boton-morado boton-chico"
+          >
+            Buscar tutor →
+          </a>
+
+        </span>
+
+        <!-- ESTUDIANTE -->
+        <span id="navEstudiante" style="display:none;">
+
+          <a
+            href="pages/search.html"
+            class="boton boton-morado boton-chico"
+          >
+            Buscar tutor →
+          </a>
+
+          <a
+            href="pages/my-bookings.html"
+            class="boton boton-borde boton-chico"
+          >
+            Mis reservas
+          </a>
+
+          <button
+            id="navLogoutEst"
+            class="boton boton-transparente boton-chico"
+          >
+            Cerrar sesión
+          </button>
+
+        </span>
+
+        <!-- TUTOR -->
+        <span id="navTutor" style="display:none;">
+
+          <a
+            href="pages/tutor-profile.html"
+            class="boton boton-morado boton-chico"
+          >
+            Mi perfil
+          </a>
+
+          <a
+            href="pages/my-bookings.html"
+            class="boton boton-borde boton-chico"
+          >
+            Solicitudes
+          </a>
+
+          <button
+            id="navLogoutTutor"
+            class="boton boton-transparente boton-chico"
+          >
+            Cerrar sesión
+          </button>
+
+        </span>
+
+      </div>
+
+    </div>
+
   </nav>
 
-  <!--Sección de hero-->
-  <section class="seccion-hero">
-    <div class="contenedor">
+  <!-- ========================================================= -->
+  <!-- VISITANTE -->
+  <!-- ========================================================= -->
+
+  <div id="vistaVisitante">
+
+    <section class="seccion-hero">
+
+      <div class="contenedor">
 
         <h1 class="titulo-hero">
           Encuentra el tutor
           <span class="texto-marcado"> perfecto </span>
-          <br>
+          <br />
           <span class="texto-cursiva"> para cada materia.</span>
         </h1>
 
         <p class="subtitulo-hero">
-          Reserva con tutores de matemáticas, programación, física y más.
-          Chatea y aprende a tu propio ritmo.
+          Reserva con tutores de matemáticas, programación,
+          física y más. Aprende a tu ritmo.
         </p>
 
-        <!--Botones-->
         <div class="fila-acciones">
-          <a href="pages/search.html" class="boton boton-morado boton-grande">
+
+          <a
+            href="pages/search.html"
+            class="boton boton-morado boton-grande"
+          >
             Buscar tutores
           </a>
-          <a href="pages/registrarse.html" class="boton boton-amarillo boton-grande">
+
+          <a
+            href="pages/registrarse.html"
+            class="boton boton-amarillo boton-grande"
+          >
             Quiero ser tutor
           </a>
+
         </div>
 
-        <!--Estadísticas  -->
         <div class="fila-estadisticas">
+
           <div class="item-estadistica">
             <div class="numero-estadistica">300+</div>
-            <div class="etiqueta-estadistica">Tutores activos</div>
+            <div class="etiqueta-estadistica">
+              Tutores activos
+            </div>
           </div>
+
           <div class="item-estadistica">
             <div class="numero-estadistica">2k</div>
-            <div class="etiqueta-estadistica">Sesiones</div>
+            <div class="etiqueta-estadistica">
+              Sesiones
+            </div>
           </div>
+
           <div class="item-estadistica">
             <div class="numero-estadistica">4.8★</div>
-            <div class="etiqueta-estadistica">Calificación</div>
+            <div class="etiqueta-estadistica">
+              Calificación
+            </div>
           </div>
+
         </div>
 
-        <br>
-       
-        <div class="bloque-tarjeta-hero aparecer retraso-2">
+        <br />
+
+        <div class="bloque-tarjeta-hero">
+
           <div class="tarjeta tarjeta-con-franja">
+
             <div class="interior-tarjeta-franja">
 
-            <!-- Encabezado del tutor -->
-            <div class="encabezado-tarjeta" style="margin-bottom: 1rem;">
-            <div class="iniciales-tutor iniciales-grandes">AH</div>
-            <div>
-                <div class="nombre-tutor">Ana Henao</div>
-                <div class="materia-tutor">Tutora de Cálculo</div>
-            </div>
+              <div class="encabezado-tarjeta">
+
+                <div class="iniciales-tutor iniciales-grandes">
+                  AH
+                </div>
+
+                <div>
+                  <div class="nombre-tutor">
+                    Ana Henao
+                  </div>
+
+                  <div class="materia-tutor">
+                    Tutora de Cálculo
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="fila-calificacion">
+
+                <span class="estrellas">
+                  ★★★★★
+                </span>
+
+                <span class="numero-calificacion">
+                  4.9
+                </span>
+
+              </div>
+
+              <div class="pastilla-disponible">
+
+                <div class="punto-verde"></div>
+
+                Disponible hoy
+
+              </div>
+
+              <div class="fila-precio-boton">
+
+                <div class="precio-tarjeta">
+                  $45.000
+                  <span class="unidad-precio">
+                    / hora
+                  </span>
+                </div>
+
+                <a
+                  href="pages/booking-request.html"
+                  class="boton boton-morado boton-chico"
+                >
+                  Reservar
+                </a>
+
+              </div>
+
             </div>
 
-            <!-- Estrellas y rating -->
-            <div class="fila-calificacion" style="margin-bottom: 1rem;">
-            <span class="estrellas">
-                <span class="estrella-llena">★</span>
-                <span class="estrella-llena">★</span>
-                <span class="estrella-llena">★</span>
-                <span class="estrella-llena">★</span>
-                <span class="estrella-llena">★</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- PASOS -->
+
+    <section class="seccion">
+
+      <div class="contenedor">
+
+        <div class="cuadricula-2" style="gap:5rem;">
+
+          <div>
+
+            <span class="etiqueta-seccion">
+              // flujo
             </span>
-            <span class="numero-calificacion">4.9</span>
-            <span class="cantidad-resenas">(38 reseñas)</span>
+
+            <h2 class="titulo-seccion">
+              Cómo realizar tu reserva
+            </h2>
+
+            <p class="descripcion-seccion">
+              Busca, reserva y aprende.
+            </p>
+
+          </div>
+
+          <div class="lista-pasos">
+
+            <div class="fila-paso">
+
+              <div class="contenido-paso">
+                <div class="titulo-paso">
+                  1. Busca tutor
+                </div>
+
+                <p class="descripcion-paso">
+                  Filtra por materia y precio.
+                </p>
+              </div>
+
             </div>
 
-             <!-- Disponible -->
-            <div class="pastilla-disponible">
-            <div class="punto-verde"></div>
-            Disponible hoy
+            <div class="fila-paso">
+
+              <div class="contenido-paso">
+                <div class="titulo-paso">
+                  2. Reserva
+                </div>
+
+                <p class="descripcion-paso">
+                  Elige fecha y hora.
+                </p>
+
+              </div>
+
             </div>
 
+            <div class="fila-paso">
 
-            <!-- Precio y botón -->
-            <div class="fila-precio-boton">
-            <div class="precio-tarjeta">
-                $45.000 <span class="unidad-precio">/ hora </span>
-            </div>
-            
-            <a href="pages/booking-request.html" class="boton boton-morado boton-chico">
-                Reservar
-            </a>
+              <div class="contenido-paso">
+
+                <div class="titulo-paso">
+                  3. Aprende
+                </div>
+
+                <p class="descripcion-paso">
+                  Asiste y deja tu reseña.
+                </p>
+
+              </div>
+
             </div>
 
-            <!-- Tags de materias -->
-            <div class="grupo-etiquetas" style="margin-bottom: 1rem;">
-            <span class="etiqueta etiqueta-morada">Cálculo </span>
-            <span class="etiqueta etiqueta-morada">Álgebra</span>
-            <span class="etiqueta etiqueta-verde">Online</span>
-            </div>
+          </div>
+
         </div>
-        <!-- Final bloque tarjeta -->
 
       </div>
-      <!-- Final hero -->
 
-    </div>
+    </section>
 
-  </section>
-
-  <!--Sección de pasos-->
-   <section class="seccion">
-    <div class="contenedor">
- 
-      <div class="cuadricula-2" style="gap: 5rem; align-items: start;">
- 
-        <div> <!-- Columna izquierda -->
-          <span class="etiqueta-seccion">// flujo</span>
- 
-          <h2 class="titulo-seccion">
-            Como realizar tu reserva
-            <span class="texto-resaltado">en tres pasos</span>
-          </h2>
- 
-          <p class="descripcion-seccion">
-            Elige, reserva y aprende desde hoy.
-            Mira entre nuestros tutores el que se acomode más a lo que deseas aprender.
-          </p>
-        </div>
- 
-        <!-- Columna derecha-->
-        <div class="lista-pasos">
- 
-          <!-- Paso 1 -->
-          <div class="fila-paso">
-
-            <div class="lado-numero">
-              <div class="numero-paso">01</div>
-              <div class="linea-paso"></div>
-            </div>
-
-            <div class="contenido-paso">
-              <div class="titulo-paso">Busca por materia</div>
-              <p class="descripcion-paso">
-                Filtra tus tutores por precio, modalidad y disponibilidad.
-              </p>
-            </div>
-
-          </div>
- 
-          <!-- Paso 2 -->
-          <div class="fila-paso">
-
-            <div class="lado-numero">
-              <div class="numero-paso">02</div>
-              <div class="linea-paso"></div>
-            </div>
-
-            <div class="contenido-paso">
-              <div class="titulo-paso">Solicita una sesión</div>
-              <p class="descripcion-paso">
-                Propone fecha y hora. El tutor acepta en menos de 24 horas.
-              </p>
-            </div>
-
-          </div>
- 
-          <!-- Paso 3 -->
-          <div class="fila-paso">
-
-            <div class="lado-numero">
-              <div class="numero-paso">03</div>
-              <div class="linea-paso"></div>
-            </div>
-
-            <div class="contenido-paso">
-              <div class="titulo-paso">Aprende y califica</div>
-              <p class="descripcion-paso">
-                Chatea, asiste a la sesión y deja tu reseña.
-              </p>
-            </div>
-
-          </div>
- 
-        </div>
-        <!-- Fin lista pasos -->
- 
-      </div>
-      <!-- Fin cuadricula -->
- 
-    </div>
-
-  </section>
-   
-  <div class="contenedor">
-    <div class="linea-colores"></div>
   </div>
 
-  <!-- Caja de invitacion -->
-  <section class="seccion-pequena">
-    <div class="contenedor">
+  <!-- ========================================================= -->
+  <!-- ESTUDIANTE -->
+  <!-- ========================================================= -->
 
-      <div class="caja-registrate">
+  <div id="vistaEstudiante">
 
-        <span class="etiqueta-seccion">// empieza hoy</span>
+    <section class="seccion-hero">
 
-        <h2 class="titulo-seccion" style="margin-top: 0.5rem;">
-          No pierdas la oportunidad
-        </h2>
+      <div class="contenedor">
 
-        <p class="descripcion-seccion" style="margin: 0 auto 2rem; text-align: center;">
-          Créate una cuenta gratis.  Sin compromisos.
+        <h1 class="titulo-hero">
+
+          Bienvenido
+          <span
+            class="texto-marcado"
+            id="heroNombreEst"
+          >
+          </span>
+
+          👋
+
+        </h1>
+
+        <p class="subtitulo-hero">
+          ¿Qué quieres aprender hoy?
         </p>
 
-        <!-- Botones-->
-        <div class="fila-acciones" style="justify-content: center;">
-          <a href="pages/register.html" class="boton boton-morado boton-grande">
-            Crear cuenta gratis
-          </a>
-          <a href="pages/search.html" class="boton boton-borde boton-grande">
-            Ver tutores →
-          </a>
+        <div class="panel-dashboard">
+
+          <h2>
+            Panel del estudiante
+          </h2>
+
+          <div class="acciones-dashboard">
+
+            <a
+              href="pages/search.html"
+              class="tarjeta-dashboard"
+            >
+
+              <div class="titulo-dashboard">
+                🔍 Buscar tutor
+              </div>
+
+              <p>
+                Encuentra tutores por materia.
+              </p>
+
+            </a>
+
+            <a
+              href="pages/my-bookings.html"
+              class="tarjeta-dashboard"
+            >
+
+              <div class="titulo-dashboard">
+                📅 Mis reservas
+              </div>
+
+              <p>
+                Revisa tus sesiones.
+              </p>
+
+            </a>
+
+            <a
+              href="pages/chat.html"
+              class="tarjeta-dashboard"
+            >
+
+              <div class="titulo-dashboard">
+                💬 Chats
+              </div>
+
+              <p>
+                Habla con tus tutores.
+              </p>
+
+            </a>
+
+            <a
+              href="pages/search.html"
+              class="tarjeta-dashboard"
+            >
+
+              <div class="titulo-dashboard">
+                ⭐ Tutores recomendados
+              </div>
+
+              <p>
+                Descubre nuevos tutores.
+              </p>
+
+            </a>
+
+          </div>
+
         </div>
 
       </div>
-      <!-- Fin caja de invitación -->
 
-    </div>
-  </section>
+    </section>
 
+  </div>
 
-  <!-- Pie de página -->
+  <!-- ========================================================= -->
+  <!-- TUTOR -->
+  <!-- ========================================================= -->
+
+  <div id="vistaTutor">
+
+    <section class="seccion-hero">
+
+      <div class="contenedor">
+
+        <h1 class="titulo-hero">
+
+          Panel del tutor
+          <span
+            class="texto-marcado"
+            id="heroNombreTutor"
+          >
+          </span>
+
+        </h1>
+
+        <p class="subtitulo-hero">
+          Administra tus estudiantes y sesiones.
+        </p>
+
+        <div class="panel-dashboard">
+
+          <h2>
+            Dashboard tutor
+          </h2>
+
+          <div class="acciones-dashboard">
+
+            <a
+              href="pages/tutor-profile.html"
+              class="tarjeta-dashboard"
+            >
+
+              <div class="titulo-dashboard">
+                ✏️ Mi perfil
+              </div>
+
+              <p>
+                Actualiza tu información.
+              </p>
+
+            </a>
+
+            <a
+              href="pages/my-bookings.html"
+              class="tarjeta-dashboard"
+            >
+
+              <div class="titulo-dashboard">
+                📋 Solicitudes
+              </div>
+
+              <p>
+                Gestiona reservas pendientes.
+              </p>
+
+            </a>
+
+            <a
+              href="pages/my-bookings.html"
+              class="tarjeta-dashboard"
+            >
+
+              <div class="titulo-dashboard">
+                💬 Chats activos
+              </div>
+
+              <p>
+                Habla con estudiantes.
+              </p>
+
+            </a>
+
+            <a
+              href="pages/my-bookings.html"
+              class="tarjeta-dashboard"
+            >
+
+              <div class="titulo-dashboard">
+                ✅ Sesiones completadas
+              </div>
+
+              <p>
+                Revisa tu historial.
+              </p>
+
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- FOOTER -->
+
   <footer id="pie-pagina">
-    <p> 2026 TutorMatch - Ana Henao / Samuel Acosta </p>
+    <p>
+      2026 TutorMatch - Ana Henao / Samuel Acosta
+    </p>
   </footer>
 
+  <!-- JS -->
 
-  <!--JavaScript-->
-  <script src="js/auth.js"></script>
-  <script src="js/auth.js"></script>
   <script src="js/mockData.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/validators.js"></script>
 
-  <script>
-    console.log("TutorMatch cargado ✅");
-  </script>
-
   <script type="module">
-  import { getSession, logout } from "./js/auth.js";
 
-  const session = getSession();
-  const navButtons = document.getElementById("navButtons");
-  const loginLink = document.getElementById("loginLink");
-  const registerLink = document.getElementById("registerLink");
-  const searchLink = document.getElementById("searchLink");
+    import {
+      getSession,
+      logout
+    } from "./js/auth.js";
 
-  if (session) {
-    if (loginLink) loginLink.style.display = "none";
-    if (registerLink) registerLink.style.display = "none";
+    const session = getSession();
 
-    const userInfo = document.createElement("span");
-    userInfo.className = "boton boton-transparente";
-    userInfo.textContent = `Hola, ${session.name} (${session.role})`;
+    function mostrarVista(idVista) {
 
-    const logoutButton = document.createElement("button");
-    logoutButton.className = "boton boton-borde boton-chico";
-    logoutButton.textContent = "Cerrar sesión";
+      const vistas = [
+        "vistaVisitante",
+        "vistaEstudiante",
+        "vistaTutor"
+      ];
 
-    logoutButton.addEventListener("click", () => {
+      vistas.forEach((id) => {
+
+        const vista =
+          document.getElementById(id);
+
+        if (vista) {
+
+          vista.style.display =
+            id === idVista
+              ? "block"
+              : "none";
+
+        }
+
+      });
+
+    }
+
+    function cerrarSesion() {
+
       logout();
       window.location.reload();
-    });
 
-    navButtons.prepend(userInfo);
-    navButtons.appendChild(logoutButton);
-
-    if (session.role === "tutor" && searchLink) {
-      searchLink.textContent = "Mi perfil tutor";
-      searchLink.href = "pages/tutor.html?id=t1";
     }
 
-    if (session.role === "estudiante" && searchLink) {
-      searchLink.textContent = "Buscar tutor →";
-      searchLink.href = "pages/search.html";
+    // ==================================================
+    // VISITANTE
+    // ==================================================
+
+    if (!session) {
+
+      mostrarVista("vistaVisitante");
+
     }
-  }
-</script>
+
+    // ==================================================
+    // TUTOR
+    // ==================================================
+
+    else if (
+      session.role === "tutor" ||
+      session.isTutor
+    ) {
+
+      mostrarVista("vistaTutor");
+
+      document.getElementById(
+        "navVisitante"
+      ).style.display = "none";
+
+      document.getElementById(
+        "navTutor"
+      ).style.display = "inline-flex";
+
+      const nombreTutor =
+        document.getElementById(
+          "heroNombreTutor"
+        );
+
+      if (nombreTutor) {
+
+        nombreTutor.textContent =
+          session.fullName ||
+          session.name;
+
+      }
+
+      document
+        .getElementById("navLogoutTutor")
+        .addEventListener(
+          "click",
+          cerrarSesion
+        );
+
+    }
+
+    // ==================================================
+    // ESTUDIANTE
+    // ==================================================
+
+    else if (
+      session.role === "estudiante" ||
+      session.isStudent
+    ) {
+
+      mostrarVista("vistaEstudiante");
+
+      document.getElementById(
+        "navVisitante"
+      ).style.display = "none";
+
+      document.getElementById(
+        "navEstudiante"
+      ).style.display = "inline-flex";
+
+      const nombreEstudiante =
+        document.getElementById(
+          "heroNombreEst"
+        );
+
+      if (nombreEstudiante) {
+
+        nombreEstudiante.textContent =
+          session.fullName ||
+          session.name;
+
+      }
+
+      document
+        .getElementById("navLogoutEst")
+        .addEventListener(
+          "click",
+          cerrarSesion
+        );
+
+    }
+
+  </script>
 
 </body>
-
 </html>

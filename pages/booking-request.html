@@ -69,7 +69,7 @@
         <p id="booking-general-error" class="error-text"></p>
         <p id="booking-success" class="success-text"></p>
 
-        <button type="submit" class="boton boton-morado boton-grande">
+        <button id="submitBtn" type="submit" class="boton boton-morado boton-grande">
           Confirmar reserva
         </button>
       </form>
@@ -80,7 +80,7 @@
     import { getSession } from "../js/auth.js";
     import { createBooking } from "../js/bookings.js";
     import { validateBooking } from "../js/validators.js";
-    import { showFieldError, clearErrors, setLoading, showToast } from "../js/ui.js";
+    import { showFieldError, clearErrors, setLoading, showToast} from "../js/ui.js";
  
     const form = document.getElementById("bookingForm");
     const generalError = document.getElementById("booking-general-error");
@@ -94,8 +94,10 @@
     const params = new URLSearchParams(window.location.search);
     const tutorId = params.get("id") || "t1";
 
+    let session = null;
+ 
     (async () => {
-    const session = await getSession();
+    session = await getSession();
 
       if (!session) {
         // Escenario alterno 1, mostrar bloque de login
@@ -145,8 +147,9 @@
         showToast("¡Reserva creada correctamente!", "success");
         successMessage.textContent = "Reserva creada correctamente";
         form.reset();
+        
       } catch (err) {
-        // manejo de errores inesperados (estado "error" del parcial)
+        console.error("Booking error:", err);
         generalError.textContent = "Ocurrió un error inesperado. Intenta de nuevo.";
       } finally {
         //siempre restaurar el botón, haya o no error

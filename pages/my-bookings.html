@@ -30,7 +30,7 @@
   <script type="module">
     import { getSession, logout } from "../js/auth.js";
     import { getBookings, cancelBooking } from "../js/bookings.js";
-    import { renderEmptyState} from "../js/ui.js";
+    import { renderEmptyState, setLoading, showToast} from "../js/ui.js";
 
     const container = document.getElementById("bookingsContainer");
     const session = getSession();
